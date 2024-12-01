@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech M</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="py-3 header-color">
+
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between ">
+                <div class="show768">
+                    <i class="fa fa-navicon" id="toggleIcon"></i>
+                </div>
+                <!-- Logo on the left -->
+                <div class="">
+                    <span class="logo">VENIA</span>
+                </div>
+
+                <!-- Menu in the middle -->
+                <div id="toggleDiv" class="text-center hide768">
+                    <nav>
+                        <ul class="nav justify-content-center">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="product.html">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Checkout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Jewellery</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Add to Cart icon on the right -->
+                <div class="text-end">
+                    <a href="cart.html" class="cart-icon" id="cart-section-icon">
+                        <i class="fa fa-shopping-cart "></i>
+                        <span id="no_of_products"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="conquerUperWrap aboutconquerUperWrap mb-5 w-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center">
+                        <div class="w-60">
+                            <img src="img/brandOne.jpg">
+                        </div>
+                        <div class="w-40 conquerWrap">
+                            <h2> Conquer your next adventure</h2>
+                            <p> Lorem Ipsum Doller Tempor</p>
+                            <button class="btn btn-dark">Shop Services</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="product-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-md-6 col-sx-6 col-xs-12">
+                    <div id="image-container" class="image-container">
+                    </div>
+                </div>
+                <div class="pt-5 col-xl-6 col-md-6 col-sx-6 col-xs-12">
+                    <div id="details-container" class="details-container">
+                    </div>
+                    <hr>
+                    <h6>Quantity</h6>
+                    <div class="input-container">
+                        <button id="minus-btn" class="btn minPlusButton" onclick="changeValue(-1)">-</button>
+                        <input type="text" id="numeric-input" class="input-box" value="0" oninput="validateInput()">
+                        <button id="plus-btn" class="btn minPlusButton" onclick="changeValue(1)">+</button>
+                    </div>
+                    <div class="mt-3 mb-3">
+                        <button id="add-to-cart-btn" class="btn adToCartButton bg-primary pt-1 color-white"
+                            onclick="addToCart()">Add To Cart</button>
+                    </div>
+                    <i class="fa fa-heart ms-4" aria-hidden="true"></i>
+                    <i class="fa fa-share-alt ms-4" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div id="description-container" class="mt-5 mb-5">
+            </div>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-3 col-sm-6">
+                        <h6>Account</h6>
+                        <ul>
+                            <li>Sign In</li>
+                            <li>Register</li>
+                            <li>Order Status</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-3 col-sm-6">
+                        <h6>About Us</h6>
+                        <ul>
+                            <li>Our Story</li>
+                            <li>Career</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-3 col-sm-6">
+                        <h6>Help</h6>
+                        <ul>
+                            <li>Contact Us</li>
+                            <li>Order Status</li>
+                            <li>Return</li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-3 col-sm-6">
+                        <h6>Follow Us</h6>
+                        <ul>
+                            <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has
+                                been.</li>
+                            <li>
+                                <a href="#"><i class="fa fa-user"></i></a>
+                                <a href="#"><i class="fa fa-image"></i></a>
+                                <a href="#"><i class="fa fa-envelope"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class=" hide768">
+            <div class="container hide768">
+                <div class="row align-items-center pb-2">
+                    <div class="col-12 col-md-3 col-sm-3">
+                        <span class="logo">VENIA</span>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-sm-6 text-center">
+                        <p>@copyright countryname cityname statename</p>
+                    </div>
+
+                    <div class="col-12 col-md-3 col-sm-3">
+                        <ul class="nav justify-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Term of use</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Privacy Policy</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-pzjw8f+ua7Kw1TIq0+XqC3gR8+JXjHiYv1z5BX6qYhGhU44Plln8V0ndt6lYpqJl"
+            crossorigin="anonymous"></script>
+        <script src="main.js"></script>
+
+</body>
+
+</html>
