@@ -1,6 +1,5 @@
 let globalData = [];
 let currentPage = 1;
-const itemsPerPage = 10;
 let totalProducts = 0;
 let cartSection = document.getElementById("cart-section");
 let checkoutSection = document.getElementById("checkout-section");
@@ -17,6 +16,14 @@ let paymentInformationReadonlySection = document.getElementById("payment-informa
 let finalSelectedProductListSection = document.getElementById("final-selected-product-list-section");
 let continueToPlaceOrder = document.getElementById("continueToPlaceOrder");
 let orderSuccessfullSection = document.getElementById("order-successfull-section");
+
+const priceRangeInput = document.getElementById('price-range');
+const priceRangeValue = document.getElementById('price-range-value');
+const loadMoreButton = document.getElementById('load-more');
+
+let displayedProducts = 5;
+const itemsPerPage = 5;
+
 let checkoutDetails = {
   shippingInformationDet: {},
   shippingMethod: {},
@@ -24,16 +31,38 @@ let checkoutDetails = {
 };
 
 const loadProducts = async () => {
+  const response = await fetch(`https://fakestoreapi.com/products`);
+  const data = await response.json();
+  if (data.length > 0) {
+    globalData = data;
+  }
+  displayIndexProducts(globalData);
+  renderProducts();
+
+}
+
+const renderProducts = async () => {
   try {
     // const response = await fetch(`https://fakestoreapi.com/products?page=${currentPage}&limit=${itemsPerPage}`);
-    const response = await fetch(`https://fakestoreapi.com/products`);
+    // const response = await fetch(`https://fakestoreapi.com/products`);
 
-    const data = await response.json();
+    // const data = await response.json();
 
-    if (data.length > 0) {
-      globalData = data;
-      displayProducts(globalData);
-      displayIndexProducts(globalData);
+    // if (data.length > 0) {
+    //   globalData = data;
+    //   displayProducts(globalData);
+    //   displayIndexProducts(globalData);
+    // }
+
+    const productsToDisplay = globalData.slice(0, displayedProducts);
+    displayProducts(productsToDisplay);
+    // displayIndexProducts(productsToDisplay);
+
+    // Update the "Load More" button visibility
+    if (displayedProducts >= globalData.length) {
+      loadMoreButton.style.display = 'none';
+    } else {
+      loadMoreButton.style.display = 'inline-block';
     }
 
   } catch (error) {
@@ -44,7 +73,6 @@ const loadProducts = async () => {
 // Function to filter products by category
 const filterByCategory = (category) => {
   let filteredProducts;
-
   if (category === 'all') {
     filteredProducts = products;
   } else {
@@ -132,7 +160,7 @@ const displayProducts = (data, selectedfilters = []) => {
 
     const val = document.getElementById("selectedProduct");
     let filteredProducts = data;
-    if (selectedfilters.length > 0) {
+    if (selectedfilters.length > 0 && data.length > 0) {
       filteredProducts = data.filter(item =>
         selectedfilters.some(selectedfilter =>
           selectedfilter.toLowerCase() === item.category.toLowerCase()
@@ -179,8 +207,13 @@ const displayProducts = (data, selectedfilters = []) => {
 
 };
 
-function sortByPrice() {
-  const sortedArray = [...globalData].sort((a, b) => a.price - b.price);
+function sortByPrice(data) {
+  let sortedArray;
+  if (data == 'sortlow') {
+    sortedArray = [...globalData].sort((a, b) => a.price - b.price);
+  } else if (data == 'sorthigh') {
+    sortedArray = [...globalData].sort((a, b) => b.price - a.price);
+  }
   displayProducts(sortedArray);
 }
 
@@ -190,17 +223,15 @@ function resetList() {
 if (document.getElementById('sort-options')) {
   document.getElementById('sort-options').addEventListener('change', function (event) {
     const selectedOption = event.target.value;
-
     if (selectedOption === 'default') {
       resetList();
-    } else if (selectedOption === 'sort') {
-      sortByPrice();
+    } else {
+      sortByPrice(selectedOption);
     }
   });
-
 }
 
-// Function to update the quantity when the user clicks the minus or plus buttons
+// minus or plus buttons
 function changeValue(increment) {
   const quantityInput = document.getElementById('numeric-input');
   let currentQuantity = parseInt(quantityInput.value);
@@ -213,7 +244,6 @@ function changeValue(increment) {
     currentQuantity = 0;
   }
   quantityInput.value = currentQuantity;
-  console.log('Updated Quantity:', currentQuantity);
 }
 
 // validate the input
@@ -223,7 +253,6 @@ function validateInput() {
   if (isNaN(value) || value < 0) {
     quantityInput.value = 0;
   }
-  console.log('Validated Quantity:', quantityInput.value);
 }
 
 function addToCart() {
@@ -658,7 +687,23 @@ function hideAllSection() {
   finalSelectedProductListSection.style.display = "none";
 }
 
+if (priceRangeInput) {
+  priceRangeInput.addEventListener('input', function () {
+    const maxPrice = parseFloat(priceRangeInput.value);
+    priceRangeValue.innerText = `$${maxPrice.toFixed(2)}`;
 
+    // Filter products based on the selected price range
+    const filteredProducts = globalData.filter(product => product.price <= maxPrice);
+    displayProducts(filteredProducts);
+  });
+}
+
+if (loadMoreButton) {
+  loadMoreButton.addEventListener('click', function () {
+    displayedProducts += itemsPerPage;
+    renderProducts(); // Render products based on the new displayedProducts count
+  });
+}
 
 window.onload = () => {
 

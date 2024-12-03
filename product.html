@@ -113,6 +113,14 @@
                             <input type="checkbox" id="homeAppliances" value="jewelery" onclick="onCheckboxClick()">
                             Jewelry
                         </div>
+                        <br>
+                        <div class="price-range-container">
+                            <div>
+                                <label for="price-range">Price Range: </label>
+                            </div>
+                            <input type="range" id="price-range" min="0" max="1000" step="1" value="1000">
+                            <span id="price-range-value">$1000</span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-9 col-md-12 col-sm-12">
@@ -122,7 +130,8 @@
                     <span id="showFilter" class="float-start filterShow show990">Filter</span>
                     <select class="float-end" id="sort-options">
                         <option value="default">Select</option>
-                        <option value="sort">Sort by Price</option>
+                        <option value="sortlow">Sort by Low to High</option>
+                        <option value="sorthigh">Sort by Hight to Low</option>
                     </select>
                     <div class="clearfix"></div>
                     <hr>
@@ -133,7 +142,7 @@
                     </section>
 
 
-                    <!-- <button type="button" id="loadMoreBtn">Load More</button> -->
+                    <button id="load-more" class="load-more-btn btn-primary ">Load More</button>
 
 
                 </div>
